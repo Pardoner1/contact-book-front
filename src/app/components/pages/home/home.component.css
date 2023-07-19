@@ -1,0 +1,64 @@
+/* .people {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 10px;
+}
+
+.person {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 0.5em;
+} */
+
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.person {
+  flex: 1 1 320px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 0.5em;
+}
+
+
+div {
+  padding: 0.5em;
+}
+
+li {
+  list-style-type: none;
+}
+
+.person-detail {
+  display: flex;
+  flex-direction: row;
+}
+
+.person-detail div {
+  padding: 0.5em;
+}
+
+.person-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.person-buttons button {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.edit-button {
+  background-color: #04AA6D;
+}
+
+mat-icon {
+  color: white;
+}

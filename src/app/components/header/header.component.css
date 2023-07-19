@@ -1,0 +1,27 @@
+ul.horizontal {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul.horizontal li {
+  float: left;
+}
+
+ul.horizontal li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1vh 1vw;
+  text-decoration: none;
+}
+
+ul.horizontal li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}

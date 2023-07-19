@@ -1,0 +1,16 @@
+<div class="container">
+  <form (ngSubmit)="submitPerson()" [formGroup]="personForm" #formPerson="ngForm">
+    <div class="form-group">
+      <label for="name">Nome:</label>
+      <input type="text" formControlName="name" placeholder="Informe o nome do contato" required />
+    </div>
+    <div *ngIf="(name.invalid || contactInvalid) && formPerson.submitted" class="validation-error">
+      <p *ngIf="name.errors?.['required']">O nome é obrigatório!</p>
+      <p *ngIf="name.errors?.['minlength']">O nome deve ter mais de 4 letras!</p>
+      <p *ngIf="contactInvalid">Você precisa ter pelo menos uma informação de contato!</p>
+    </div>
+    <input type="submit" value="{{ btnTextPerson }}" />
+  </form>
+  <app-contact-form [btnText]="btnText" (sendContact)="addContact($event)"></app-contact-form>
+  <app-contact-table [contacts]="contatos" (deleteContact)="removeContact($event)"></app-contact-table>
+</div>

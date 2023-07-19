@@ -1,0 +1,25 @@
+<section class="container">
+  <div class="contacts">
+    <div *ngIf="contacts">
+      <div class="contact" *ngFor="let contact of contacts; let key = index">
+        <div class="contact-detail">
+          <div>
+            <ul>
+              <li>
+                <small>
+                  <strong>{{contact.type}}:</strong>
+                  {{contact.value}}
+                </small>
+              </li>
+            </ul>
+          </div>
+          <div class="contact-buttons">
+            <button (click)="handleClick(key)" mat-mini-fab color="warn" aria-label="Botão para exclusão de contato">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

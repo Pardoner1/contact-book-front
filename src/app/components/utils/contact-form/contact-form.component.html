@@ -1,0 +1,21 @@
+<form (ngSubmit)="submitContact()" [formGroup]="contactForm" #formContact="ngForm">
+  <label>Tipo de contato: </label>
+  <mat-radio-group (change)="contactForm.controls['value'].setValue(''); contactForm.untouched" formControlName="type">
+
+    <mat-radio-button value="telefone" checked>Telefone</mat-radio-button>
+    <mat-radio-button value="whatsapp">WhatsApp</mat-radio-button>
+    <mat-radio-button value="email">email</mat-radio-button>
+  </mat-radio-group>
+  <div class="form-group">
+    <span for="value">{{ type.value === 'email' ? 'Email: ' : 'Tel: ' }}</span>
+    <ng-container [ngSwitch]="type">
+      <input *ngSwitchCase="'email'" type="email" formControlName="value" placeholder="Informe o email do contato"
+        required />
+      <input *ngSwitchDefault type="tel" formControlName="value" placeholder="Informe o telefone do contato" required />
+      <div *ngIf="value.invalid && formContact.submitted" class="validation-error">
+        <p>O valor do contato é obrigatório!</p>
+      </div>
+    </ng-container>
+  </div>
+  <input type="submit" value="{{ btnText }}" />
+</form>
