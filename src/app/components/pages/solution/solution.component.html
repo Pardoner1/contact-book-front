@@ -1,0 +1,23 @@
+<div class="class">
+  <h2>Teste de validação</h2>
+  <br />
+  <form>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Campo para validação</mat-label>
+        <input [(ngModel)]="validate" name="validate" matInput placeholder="Digite um valor para validação"
+          (keyup)="handleChange()" />
+        <mat-hint>{{"Apenas caracteres do tipo colchete: (, ), {, }, [, ou ]."}}</mat-hint>
+      </mat-form-field>
+    </p>
+  </form>
+  <br />
+  <br />
+  <div *ngIf="validateTest(); then isValid else notValid"></div>
+  <ng-template #isValid>
+    <h2>A sequência: <strong>{{validate}}</strong> é válida!</h2>
+  </ng-template>
+  <ng-template #notValid>
+    <h2>A sequência: <strong>{{validate}}</strong> não é válida!</h2>
+  </ng-template>
+</div>
