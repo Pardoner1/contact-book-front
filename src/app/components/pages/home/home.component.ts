@@ -34,11 +34,8 @@ export class HomeComponent {
     this.getPeople();
   }
 
-  async editPerson(person: Person) {
-    await this.apiService.updatePerson(person).subscribe();
-
-    this.messagesService.add(`Contato atualizado com sucesso!`);
-
-    this.router.navigate(['/']);
+  editPerson(person: Person) {
+    const id = person.id;
+    this.router.navigate([`/person/edit/${id}`]);
   }
 }

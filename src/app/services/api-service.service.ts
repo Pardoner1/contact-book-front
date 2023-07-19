@@ -14,8 +14,8 @@ export class ApiServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getPerson(person: Person): Observable<Person> {
-    const url = `${this.apiUrl}/${person.id}`;
+  getPerson(id: string): Observable<Person> {
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<Person>(url);
   }
 

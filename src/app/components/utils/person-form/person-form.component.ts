@@ -28,10 +28,24 @@ export class PersonFormComponent {
   }
 
   ngOnInit(): void {
-    this.personForm = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    });
+    if (this.personData) {
+      this.personForm = new FormGroup({
+        id: new FormControl(this.personData.id),
+        name: new FormControl(this.personData.name, [
+          Validators.required,
+          Validators.minLength(4),
+        ]),
+      });
+      this.contatos = this.personData.contacts;
+    } else {
+      this.personForm = new FormGroup({
+        id: new FormControl(''),
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(4),
+        ]),
+      });
+    }
   }
 
   get name() {
@@ -58,10 +72,18 @@ export class PersonFormComponent {
       this.contactInvalid = false;
     }
 
-    this.payloadData = {
-      name: this.personForm.value.name,
-      contacts: this.contatos,
-    };
+    if (this.personData) {
+      this.payloadData = {
+        id: this.personData.id,
+        name: this.personForm.value.name,
+        contacts: this.contatos,
+      };
+    } else {
+      this.payloadData = {
+        name: this.personForm.value.name,
+        contacts: this.contatos,
+      };
+    }
 
     this.onSubmit.emit(this.payloadData);
     this.personForm.reset();

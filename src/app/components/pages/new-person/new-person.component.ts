@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Person } from 'src/app/interfaces/Person';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { MessagesService } from 'src/app/services/messages.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-person',
@@ -10,7 +11,6 @@ import { MessagesService } from 'src/app/services/messages.service';
   styleUrls: ['./new-person.component.css'],
 })
 export class NewPersonComponent {
-  showModal: boolean = false;
   btnTextContact: string = '+contato';
   btnTextPerson: string = 'Enviar';
 
@@ -20,19 +20,17 @@ export class NewPersonComponent {
     private messagesService: MessagesService
   ) {}
 
-  openModal(): void {
-    this.showModal = true;
-  }
-
-  closeModal(): void {
-    this.showModal = false;
-  }
-
   async createHandler(person: Person) {
-    await this.apiService.createPerson(person).subscribe();
+    try {
+      await this.apiService.createPerson(person).pipe(first()).toPromise();
 
-    this.messagesService.add(`Contato adicionado com sucesso!`);
+      this.messagesService.add(`Contato adicionado com sucesso!`);
 
-    this.router.navigate(['/']);
+      this.router.navigate(['/']);
+    } catch (error) {
+      // Trate possíveis erros aqui, caso necessário.
+      this.messagesService.add(`Ocorreu um erro ao salvar o contato!`);
+      console.error('Ocorreu um erro ao atualizar o contato:', error);
+    }
   }
 }
