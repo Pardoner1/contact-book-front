@@ -1,7 +1,15 @@
 <section class="container-loading">
   <div class="people">
-    <div *ngIf="people; then hasPeople else isLoading"></div>
+    <div *ngIf="isLoading; then showLoading else hasPeople"></div>
+    <ng-template #showLoading>
+      <div class="loading">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
     <ng-template #hasPeople>
+      <div *ngIf="people && people.length === 0" class="no-people">
+        <p>Não há contatos cadastrados.</p>
+      </div>
       <div class="person" *ngFor="let person of people">
         <div class="person-detail">
           <div>
@@ -26,11 +34,6 @@
             </button>
           </div>
         </div>
-      </div>
-    </ng-template>
-    <ng-template #isLoading>
-      <div class="loading">
-        <mat-spinner></mat-spinner>
       </div>
     </ng-template>
   </div>

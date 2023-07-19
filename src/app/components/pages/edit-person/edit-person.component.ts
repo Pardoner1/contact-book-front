@@ -32,14 +32,12 @@ export class EditPersonComponent {
 
   async editHandler(person: Person) {
     try {
-      // Converte o Observable em uma Promise usando o operador toPromise()
       await this.apiService.updatePerson(person).pipe(first()).toPromise();
 
       this.messagesService.add(`Contato atualizado com sucesso!`);
 
       this.router.navigate(['/']);
     } catch (error) {
-      // Trate possíveis erros aqui, caso necessário.
       this.messagesService.add(`Ocorreu um erro ao atualizar o contato!`);
       console.error('Ocorreu um erro ao atualizar o contato:', error);
     }

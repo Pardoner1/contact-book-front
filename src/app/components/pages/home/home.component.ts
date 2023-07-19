@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 })
 export class HomeComponent {
   people?: Person[];
+  isLoading: boolean = false;
 
   constructor(
     private apiService: ApiServiceService,
@@ -22,10 +23,25 @@ export class HomeComponent {
   }
 
   getPeople(): void {
-    this.apiService.getAll().subscribe((people) => (this.people = people));
+    this.isLoading = true;
+
+    this.apiService.getAll().subscribe(
+      (people) => {
+        this.people = people;
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        this.messagesService.add(
+          `Ocorreu um erro pegar a lista de contatos no servidor!`
+        );
+        console.error('Ocorreu um erro ao obter os contatos:', error);
+      }
+    );
   }
 
   async deletePerson(person: Person) {
+    this.isLoading = true;
     try {
       await this.apiService.removePerson(person).pipe(first()).toPromise();
 
@@ -35,8 +51,11 @@ export class HomeComponent {
 
       this.people = this.people?.filter((p) => p.id !== person.id);
 
+      this.isLoading = false;
+
       // this.getPeople();
     } catch (error) {
+      this.isLoading = false;
       this.messagesService.add(`Ocorreu um erro ao excluir o contato!`);
       console.error('Ocorreu um erro ao excluir o contato:', error);
     }
